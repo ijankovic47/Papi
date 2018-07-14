@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,14 +46,14 @@ public class PlayerController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody PlayerDto player) throws URISyntaxException{
+	public ResponseEntity<?> create(@RequestBody@Validated PlayerDto player) throws URISyntaxException{
 		Integer id=playerService.create(player);
 		HttpHeaders headers=new HttpHeaders();
 		headers.setLocation(new URI("/player/"+id));
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	@RequestMapping(value="/{playerId}", method=RequestMethod.PATCH)
-	public ResponseEntity<?> edit(@RequestBody PlayerDto player, @PathVariable("playerId") Integer id) throws NoSuchEntityException{
+	public ResponseEntity<?> edit(@RequestBody@Validated PlayerDto player, @PathVariable("playerId") Integer id) throws NoSuchEntityException{
 		
 		playerService.edit(id, player);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

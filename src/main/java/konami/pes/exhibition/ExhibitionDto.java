@@ -2,14 +2,29 @@ package konami.pes.exhibition;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 public class ExhibitionDto {
 
 	private Integer id;
+	@NotNull(message="Score 1 must not be null !")
+	@Min(value=0, message="Score 1 must be >0 !")
 	private Integer score1;
+	@NotNull(message="Score 2 must not be null !")
+	@Min(value=0, message="Score 2 must be >0 !")
 	private Integer score2;
+	@NotNull(message="You didn't select player 1 !")
+	@Min(value=1, message="Player 1 id must be >0 !")
 	private Integer player1;
+	@NotNull(message="You didn't select player 2 !")
+	@Min(value=1, message="Player 2 id must be >0 !")
 	private Integer player2;
+	@NotNull(message="You didn't select team 1 !")
+	@Min(value=1, message="Team 1 id must be >0 !")
 	private Integer team1;
+	@NotNull(message="You didn't select team 2 !")
+	@Min(value=1, message="Team 2 id must be >0 !")
 	private Integer team2;
 	private Date date;
 	public Integer getId() {

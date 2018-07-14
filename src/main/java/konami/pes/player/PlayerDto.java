@@ -1,8 +1,13 @@
 package konami.pes.player;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class PlayerDto {
 
 	private Integer id;
+	@NotNull(message="Player name must not be null !")
+	@NotEmpty(message="Player name must not be empty !")
 	private String name;
 	private String image;
 	public Integer getId() {

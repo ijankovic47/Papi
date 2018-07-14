@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,7 +51,7 @@ public class ClubController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody ClubDto club) throws URISyntaxException, FieldErrorException{
+	public ResponseEntity<?> create(@RequestBody@Validated ClubDto club) throws URISyntaxException, FieldErrorException{
 		
 		Integer id=clubService.create(club);
 		HttpHeaders headers=new HttpHeaders();
@@ -59,7 +60,7 @@ public class ClubController {
 	}
 	
 	@RequestMapping(value="/{clubId}", method=RequestMethod.PATCH)
-	public ResponseEntity<?> edit(@RequestBody ClubDto club, @PathVariable("clubId") Integer id) throws NoSuchEntityException{
+	public ResponseEntity<?> edit(@RequestBody@Validated ClubDto club, @PathVariable("clubId") Integer id) throws NoSuchEntityException{
 		
 		clubService.edit(id, club);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

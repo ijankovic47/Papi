@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +35,7 @@ public class ExhibitionController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody ExhibitionDto exhibition) throws FieldErrorException, URISyntaxException{
+	public ResponseEntity<?> create(@RequestBody@Validated ExhibitionDto exhibition) throws FieldErrorException, URISyntaxException{
 		
 		Integer id=exhibitionService.create(exhibition);
 		HttpHeaders headers=new HttpHeaders();

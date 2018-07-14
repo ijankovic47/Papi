@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,7 +51,7 @@ public class NationController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody NationDto nation) throws URISyntaxException, FieldErrorException{
+	public ResponseEntity<?> create(@RequestBody@Validated NationDto nation) throws URISyntaxException, FieldErrorException{
 		
 		Integer id=nationService.create(nation);
 		HttpHeaders headers=new HttpHeaders();
@@ -58,9 +59,8 @@ public class NationController {
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 	@RequestMapping(value="/{nationId}", method=RequestMethod.PATCH)
-	public ResponseEntity<?> edit(@RequestBody NationDto nation, @PathVariable("nationId") Integer id) throws NoSuchEntityException{
+	public ResponseEntity<?> edit(@RequestBody@Validated NationDto nation, @PathVariable("nationId") Integer id) throws NoSuchEntityException{
 		
-		nationService.edit(id, nation);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +50,7 @@ public class LeagueController {
 		}
 	}
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody LeagueDto league) throws FieldErrorException, URISyntaxException{
+	public ResponseEntity<?> create(@RequestBody@Validated LeagueDto league) throws FieldErrorException, URISyntaxException{
 		
 		Integer id=leagueService.create(league);
 		HttpHeaders headers=new HttpHeaders();
@@ -57,7 +58,7 @@ public class LeagueController {
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
 	@RequestMapping(value="/{leagueId}", method=RequestMethod.PATCH)
-	public ResponseEntity<?> edit(@RequestBody LeagueDto league, @PathVariable("leagueId") Integer id) throws NoSuchEntityException{
+	public ResponseEntity<?> edit(@RequestBody@Validated LeagueDto league, @PathVariable("leagueId") Integer id) throws NoSuchEntityException{
 		
 		leagueService.edit(id, league);
 		return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
